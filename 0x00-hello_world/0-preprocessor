@@ -1,0 +1,2 @@
+#!/bin/bash
+JCC -E $CFILE -o c 
