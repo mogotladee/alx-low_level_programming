@@ -15,12 +15,6 @@ int main(void)
     return 0;
 }
 
-/* Your implementation of _putchar() */
-int _putchar(char c)
-{
-    return write(1, &c, 1);
-}
-
 
 
 
