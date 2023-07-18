@@ -3,13 +3,16 @@
 void print_alphabet_x10(void)
 {
     char letter;
-    int i;
+    int count;
 
-    for (i = 0; i < 10; i++)
+    for (count = 0; count < 10; count++)
     {
         for (letter = 'a'; letter <= 'z'; letter++)
+        {
             _putchar(letter);
-        _putchar('\n');
+        }
     }
+
+    _putchar('\n');
 }
 
