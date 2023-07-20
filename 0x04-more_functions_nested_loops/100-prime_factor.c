@@ -1,84 +1,47 @@
-#include <unistd.h> 
-#include "main.h"
+#include <stdio.h>
+#include <math.h>
 
-/**
- * main - prints the biggest prime factor of a number.
- *
- * Return: Always 0.
- */
-int main(void)
-{
-	long int number;
+// Function to check if a number is prime
+int is_prime(long long num) {
+    if (num < 2)
+        return 0;
 
-	number = 612852475143;
+    for (long long i = 2; i <= sqrt(num); i++) {
+        if (num % i == 0)
+            return 0;
+    }
 
-	if (isPrime(number) == 1)
-	{
-		printf("%ld\n", number);
-	}
-	else
-	{
-		printf("%ld\n", biggestFactor(number));
-	}
-	return (0);
+    return 1;
 }
-/**
- * isPrime - analise if a number is prime or not
- * @n: number to check
- * Return: true if it is prime false if not
- */
-int isPrime(long int n)
-{
-	int i;
 
-	if (n <= 1)
-	{
-		return (0);
-	}
-	else if (n == 2)
-	{
-		return (1);
-	}
-	else
-	{
-		for (i = 2; i < n; i++)
-		{
-			if (n % i == 0)
-			{
-				return (0);
-			}
-		}
-	return (1);
-	}
-}
-/**
- * biggestFactor - returns the biggest prime factor of a number
- * @a: number to check
- * Return: biggest factor
- */
-long int biggestFactor(long int a)
-{
-	long int i, factor;
+// Function to find the largest prime factor
+long long largest_prime_factor(long long num) {
+    long long largest_factor = -1;
 
-	factor = a;
-	for (i = 2; i <= factor; i++)
-	{
-		if (isPrime(factor) == 1)
-		{
-			break;
-		}
-		else
-		{
-			if ((factor % i == 0) && (isPrime(i) == 1))
-			{
-				factor = factor / i;
-				continue;
-			}
-			else
-			{
-				factor = factor;
-			}
-		}
-	}
-	return (factor);
+    while (num % 2 == 0) {
+        largest_factor = 2;
+        num /= 2;
+    }
+
+    for (long long i = 3; i <= sqrt(num); i += 2) {
+        while (num % i == 0) {
+            largest_factor = i;
+            num /= i;
+        }
+    }
+
+    if (num > 2)
+        largest_factor = num;
+
+    return largest_factor;
 }
+
+int main() {
+    long long num = 612852475143LL;
+    long long largest_factor = largest_prime_factor(num);
+
+    printf("%lld\n", largest_factor);
+
+    return 0;
+}
+
