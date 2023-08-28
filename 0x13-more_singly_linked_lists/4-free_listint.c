@@ -1,26 +1,20 @@
 #include "lists.h"
 #include <stdlib.h>
-
 /**
- * free_listint - function that frees a singly linked list.
- * @head: pointer to the head of linked list.
- *
- * Here we will use recursion unlike in the previous task.
- * Make sure there is no memory leaks.
- *
- * Return: No return.
+ * free_listint - frees the list
+ * @head: points to list
+ * Return: void
  */
-
 void free_listint(listint_t *head)
 {
-	/* go to the end of the list then start freeing from there..... "yes people need to be free from pointers" */
+	listint_t *phree;
 
-	/* we have reached the end of the list */
-	if (head == NULL)
+	if (!head)
 		return;
-	/* free everything else */
-	free_listint(head->next);
-	/* then free head */
-	free(head);
-	
+	while (head)
+	{
+		phree = head;
+		head = head->next;
+		free(phree);
+	}
 }
