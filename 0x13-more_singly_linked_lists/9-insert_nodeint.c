@@ -1,49 +1,41 @@
 #include "lists.h"
 #include <stdlib.h>
 /**
- * insert_nodeint_at_index - inserts a new node at a given position.
- * @head: pointer to the list. what list )
- * @idx: position to add the node.))))))))))))))))))))
- * @n: data for the new node.)))))))))))))))*****************
- * Return: the address of the new node, or NULL if it failed**************please i dont understand
- **/
+ * insert_nodeint_at_index - inserts new node at given position
+ * @head: ptr to ptr to list
+ * @idx: position in list to insert
+ * @n: int to put in new node
+ * Return: pointer to new node or NULL
+ */
 listint_t *insert_nodeint_at_index(listint_t **head, unsigned int idx, int n)
 {
-	listint_t *aux_node = *head;
-	listint_t *new_node;
-	unsigned int index;
-	unsigned int cont = 0;
-
-	/* create node */
-	new_node = malloc(sizeof(listint_t));
-	if (new_node == NULL)
+	/* declarations */
+	listint_t *location;
+	listint_t *new;
+	unsigned int i;
+	/* check for NULL */
+	if (!head)
 		return (NULL);
-	new_node->n = n;
-
-	/* border case for insert at the beginning */
+	location = *head;
+	new = malloc(sizeof(listint_t));
+	if (!new)
+		return (NULL);
+	new->n = n;
 	if (idx == 0)
 	{
-		new_node->next = *head;
-		*head = new_node;
+		new->next = location;
+		*head = new;
 		return (*head);
 	}
-
-	/* search of position to insert */
-	index = idx - 1;
-	while (aux_node && cont != index)
+	for (i = 0; i < (idx - 1); i++)
 	{
-		cont++;
-		aux_node = aux_node->next;
+		if (location)
+			location = location->next;
+		else
+			return (NULL);
 	}
 
-	/* general case */
-	if (cont == index && aux_node)
-	{
-		new_node->next = aux_node->next;
-		aux_node->next = new_node;
-		return (new_node);
-	}
-
-	free(new_node);
-	return (NULL);
+	new->next = location->next;
+	location->next = new;
+	return (new);
 }
