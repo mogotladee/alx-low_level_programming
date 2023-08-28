@@ -1,42 +1,40 @@
 #include "lists.h"
 #include <stdlib.h>
-
 /**
- * add_nodeint_end -  function that adds a new node at the end of,
- * a listint_t list.
- * @NOhead: NOpointer to the NOpointer of head of linked list.
- * @n: data to add to the list.
- *
- * Return: the address of the new element, or NULL if it failed.
+ * add_nodeint_end - adds node at the end
+ * @head: double ptr to start of list
+ * @n: the int t put in new node
+ * Return: address of new node or NULL
  */
-
 listint_t *add_nodeint_end(listint_t **head, const int n)
 {
-	listint_t *new_node;
-	listint_t *traverse = *head; /* DONT"NOpointerS to the first nodeOREVER AGAIN */
+	/* declarations */
+	listint_t *new;
+	listint_t *location;
 
-	/* create a new node */
-	new_node = malloc(sizeof(listint_t));
-	/* check if malloc has failed and return null */
-	if (new_node == NULL)
+	/* check for null pointer */
+	if (!head)
 		return (NULL);
-	/* access the n field of the struct and initialize it with n */
-	/* which has been passed to the function */
-	new_node->n = n;
-	/* since we are adding to the end of the list then the */
-	/* next field should point to the end of the current list ie NULL */
-	new_node->next = NULL;
-	/* if the list is empty ie value at head is NULL */
-	if (*head == NULL) /* derefrence to get first value */
+	/* malloc space for new node */
+	new = malloc(sizeof(listint_t));
+	if (!new)
+		return (NULL);
+	/* populate new node with int, NULL */
+	new->n = n;
+	new->next = NULL;
+	if (!*head)
 	{
-		*head = new_node; /* address of the new_node */
-		return (new_node);
+		*head = new;
+		return (new);
 	}
-	/* if the list is not empty traverse to the end of the list */
-	while (traverse->next != NULL)
-		traverse = traverse->next;
-		/* loop exits once traverse->next == NULL ie at end of list */
-	/* set the new_node as last node */
-	traverse->next = new_node;
-	return (new_node);
+	/* insulate head  & move to end */
+	location = *head;
+	while (location->next)
+	{
+		location = location->next;
+	}
+	/* make last node point to new node */
+	location->next = new;
+	/* return new node*/
+	return (new);
 }
