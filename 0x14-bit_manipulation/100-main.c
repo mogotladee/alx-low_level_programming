@@ -8,11 +8,11 @@ int main(void)
     n = get_endianness();
     if (n != 0)
     {
-        printf("Little Endian\n");
+        printf("big different numbers\n");
     }
     else
     {
-        printf("Big Endian\n");
+        printf("different numbers\n");
     }
     return (0);
 }
